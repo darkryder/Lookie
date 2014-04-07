@@ -1,0 +1,39 @@
+<% provide :title, @user.name %>
+
+<div style="padding-left:100px;padding-right:100px;padding-top:25px;">
+<div class="jumbotron">
+	<div style: "padding-left:10px;padding-right:10px;padding-top:25px;text-align:center;">
+	<strong><center><%= @user.name %></center></strong>
+	</div>
+</div>
+</div>
+
+<div style="padding-left:75px;">
+<%= link_to 'Back', users_path, {:class=>"btn btn-success"}%>
+</div>
+
+<div style="padding-left:50px;padding-right:50px;padding-top:5px;">
+<div class="row" style = "padding-left:20px;padding-right:20px;padding-top:25px">
+  <% @user.images.each do |image| %>
+    <div class="col-md-4 col-md-4">
+      <div class="thumbnail" style="text-align:center;padding-top:20px;">
+        <%= image_tag image.image.url(:medium) %>
+        <div class="caption">
+          <p><a href= <%= "/images/#{image.id}" %> class="btn btn-default" role="button">View Picture</a> &nbsp; &nbsp; &nbsp; 
+          <% if image.likes %>
+          <%= "#{image.likes}" %>
+          <% else %>
+          0
+          <% end %>
+          <span class="glyphicon glyphicon-heart"></span>
+          </p>      
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
+
+<div style="padding-left:75px;padding-bottom:50px;">
+<%= link_to 'Back', users_path, {:class=>"btn btn-success"}%>
+</div>

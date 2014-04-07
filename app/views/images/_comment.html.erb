@@ -1,0 +1,13 @@
+<% @image.comments.each do |comment| %>
+<div class="comment">
+  
+  <strong><i><%= h User.find(comment.commenter)[:name] %> :&nbsp;&nbsp;</i></strong>
+  <%= comment.body %>
+ 
+  <% if comment.commenter == current_user.id %><%= link_to 'Delete Comment', comment,
+    {:confirm => 'Are you sure?',
+    :method => :delete, :style => 'background-color:#FFFFFF;color:red;float:right;'} %>
+  <% end %>
+ <hr/>
+</div>
+<% end %>

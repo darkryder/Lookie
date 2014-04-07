@@ -1,0 +1,12 @@
+<%= render 'layouts/start' %>
+<body style="padding-top:50px;padding-bottom:50px">
+	<%= render 'layouts/header' %>
+
+	<%= yield %>
+
+	<%= render 'layouts/footer' %>
+	<%= debug(params) if Rails.env.development? %>
+	
+<%= debug current_user %>
+</body>
+</html>

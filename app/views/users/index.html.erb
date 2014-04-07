@@ -1,0 +1,35 @@
+<% provide :title, "People" %>
+
+<div style="padding-left:50px;padding-top:50px;">
+  <%= link_to "View Latest Photos", root_path, {:class=>"btn btn-warning"} %>
+</div>
+
+<div style="padding-left:50px;padding-right:50px;padding-top:5px;">
+
+<div class="row" style = "padding-left:20px;padding-right:20px;padding-top:25px">
+  <% @users.each do |user| %>
+    <div class="col-md-4 col-md-4">
+      <div class="thumbnail" style="text-align:center;">
+        <% @a = user.images.first %>
+        <h4><%= link_to "#{user.name}", "/users/#{user.id}", {style: ' color:#000000; background-color:#FFFFFF;'} %></h4>
+
+        <% if @a != nil %>
+        <%= image_tag @a.image.url(:medium) %>
+        <div class="caption">
+          <p><a href= <%= "users/#{user.id}" %> class="btn btn-default" role="button">View User</a> &nbsp; &nbsp; &nbsp; 
+          <% if @a.likes %>
+          <%= "#{@a.likes}" %>
+          <% else %>
+          0
+          <% end %>
+          <span class="glyphicon glyphicon-heart"></span>
+          </p>      
+        </div>
+        <% else %>
+          No image added yet . <a href= <%= "users/#{user.id}" %> class="btn btn-default" role="button">View User</a>
+        <% end %> 
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>

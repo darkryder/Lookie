@@ -1,0 +1,58 @@
+<% provide :title, @image.title %>
+
+<div style="padding-left:50px;padding-right:50px;text-align:center;padding-top:10px;">
+<div class="well">
+<strong><%= @image.title %></strong><hr/>
+
+
+<%= image_tag @image.image.url(:medium) %><br>
+<div style="padding-top:10px;text-align:left">
+<%= link_to "#{User.find(@image.user_id).name}", users_path, {:class=>"btn btn-primary"} %>
+
+<span style="float:right">
+<% if @image.user_id == current_user.id.to_s %>
+<%= link_to 'Edit', edit_image_path(@image), {:class=>"btn btn-success"} %>
+<% end %>
+</span>
+</div>
+</div>
+</div>
+
+<div style="padding-left:150px;padding-right:150px">
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <h3 class="panel-title">
+    <span style="align-text:left"><%= @image.likes%>&nbsp;</span><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;
+
+    <%if @image.likedby == nil || @image.likedby =='' || !(@image.likedby.split('+')).include?(current_user.id.to_s) %>
+      <%= link_to "Like", "/images/#{@image.id}/like", {:method=>:get, :style=>"style: color:#000000; background-color:#FFFFFF;"} %>
+    <% else %>
+      <%= link_to "Unlike", "/images/#{@image.id}/unlike", {:method=>:get, :style=>"style: color:#000000; background-color:#FFFFFF;"}%>
+    <% end %>
+
+    <span style="display:block;float:right"><%= @image.comments.length %> comments</span>
+  </h3>
+  </div>
+  <div class="panel-body" style="padding-left:20px;padding-right:20px">
+  
+  <div class="well">
+  <%= render 'comment' %>
+  </div>
+
+  <div class = "well">
+    <%= form_for @comment do |f| %>
+    <%= f.hidden_field :image_id %>
+      <div class="input-group">
+      <span class="input-group-addon"> &nbsp; &nbsp; Views: &nbsp; &nbsp; </span>
+      <%= f.text_area :body, {class: "form-control"} %></div>
+      
+      <div style="text-align:right;padding-top:10px;"><%= f.submit ({class: "btn btn-success"}) %></div>
+      
+<% end %>
+</div>
+
+
+</div>
+</div>
+</div>
+

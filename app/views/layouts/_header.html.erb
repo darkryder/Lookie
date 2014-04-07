@@ -1,0 +1,77 @@
+<div style='padding-left:10px;padding-right:10px'>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#head-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+				</button>
+				<%= link_to root_path do%>
+					<div class="navbar-brand"><span class="glyphicon glyphicon-tower"></span>  Lookie.</div>
+				<% end %>
+			</div>
+
+			<div class="collapse navbar-collapse" id="head-navbar-collapse-1">
+				<div style="text-align:center;">
+					<ul class="nav navbar-nav navbar-right">
+							<% if current_user %> 
+
+								<li class = "dropdown">
+								
+								<a href = "#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span><span class="badge">
+								<% @n = current_user.notification.split('+') %>
+								<% if @n.include? '' %>
+								  <% @n = @n.length-1 %>
+								<% else %>
+								  <% @n = @n.length %>
+								<% end %>
+								<%= @n %>
+								</span></a>
+								
+								<ul class="dropdown-menu">
+								<% current_user.notification.split('+').each do |note| %>
+								  <% if note!='' %>
+	                  <li><a href=<%= "/images/#{note.split()[2]}" %>><%= User.find(note.split()[0]).name %>
+	                  <% if note.split()[1] == "COMMENT" %>
+	                  commented on
+	                  <% elsif note.split()[1] == "LIKE" %>
+	                   likes
+	                  <% end %>
+	                   your photo.</li></a>
+	                <% end %>
+	              <% end %>							
+								</ul>
+								
+								
+								<li class="dropdown">
+
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %> <b class="caret"></b></a>
+
+								<ul class="dropdown-menu">
+								<li><%= link_to "My Profile", user_path(current_user.id) %></li>
+								<li class="divider"></li>
+								<li><%= link_to signout_path do %>
+								<span class="glyphicon glyphicon-off"> Logoff</span>
+								</li>
+
+							<% end %>
+	
+							<% else %>
+								<li><%= link_to "/auth/google_oauth2", id: "sign_in" do%>
+									<span class="glyphicon glyphicon-off"> Login/Signup</span></li>
+								<% end %>
+							</ul>
+							</li>
+							<% end %>
+
+						</li>
+					</div>
+		</ul>
+	</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+</div>
+
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: name %>
+<% end %>

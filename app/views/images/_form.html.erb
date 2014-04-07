@@ -1,0 +1,28 @@
+<div  style="padding-left:100px;padding-right:100px; padding-top:50px;text-align:center">
+<div class="well">
+
+<%= form_for(@image) do |f| %>
+  <% if @image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-group">
+      <span class="input-group-addon"> &nbsp; &nbsp; Title &nbsp; &nbsp; </span>
+      <%= f.text_field :title, {class: "form-control"} %></div>
+      <%= f.file_field :image %>
+      <div class="well">
+      <div style="padding-top:10px;"><%= f.submit ({class: "btn btn-success"}) %></div>
+      </div>
+  </div>
+
+<% end %>
+</div>
+</div>
